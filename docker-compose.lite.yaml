@@ -76,7 +76,7 @@ services:
       - POSTGRES_USER=${DATABASE_USER:-postgres}
       - POSTGRES_PWD=${DATABASE_PASSWORD:-password}
       - POSTGRES_SEEDS=${DATABASE_HOST:-postgres}
-      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/prod.yaml
+      # - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/prod.yaml
     # README: To add local env variables uncomment the following line and add a .env file in the root directory
     # env_file:
     #   - .env
@@ -87,8 +87,8 @@ services:
       - dittofeed-network-lite
     ports:
       - 7233:7233
-    volumes:
-      - ./packages/backend-lib/temporal-dynamicconfig:/etc/temporal/config/dynamicconfig
+    # volumes:
+      # - ./packages/backend-lib/temporal-dynamicconfig:/etc/temporal/config/dynamicconfig
   temporal-ui:
     profiles: ["temporal-ui"]
     container_name: temporal-ui
