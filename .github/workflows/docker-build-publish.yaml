@@ -11,7 +11,7 @@ jobs:
       matrix:
         package: [worker, api, dashboard, admin-cli, lite]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_PROVIDER == 'github' && 'ubuntu-24.04' || 'blacksmith-2vcpu-ubuntu-2404' }}
     steps:
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
