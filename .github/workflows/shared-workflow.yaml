@@ -27,7 +27,7 @@ on:
 jobs:
   lint:
     name: Run Lint
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_PROVIDER == 'github' && 'ubuntu-24.04' || 'blacksmith-2vcpu-ubuntu-2404' }}
     if: ${{ inputs.run_lint == 'true' }}
 
     steps:
@@ -55,7 +55,7 @@ jobs:
   setup-test-matrix:
     name: Setup Test Matrix
     if: ${{ inputs.run_tests == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_PROVIDER == 'github' && 'ubuntu-24.04' || 'blacksmith-2vcpu-ubuntu-2404' }}
     outputs:
       shards: ${{ steps.set-shards.outputs.shards }}
     steps:
@@ -69,7 +69,7 @@ jobs:
     name: Run Tests (${{ matrix.shard }}/${{ inputs.test_shards }})
     needs: setup-test-matrix
     if: ${{ inputs.run_tests == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_PROVIDER == 'github' && 'ubuntu-24.04' || 'blacksmith-2vcpu-ubuntu-2404' }}
     env:
       # Ensure each shard uses its own Postgres/ClickHouse DB names, so
       # globalSetup/globalTeardown don't race across parallel test shards.
